@@ -21,19 +21,20 @@
  */
 package com.agiletec.plugins.jpfacetnav.aps.tags;
 
+import com.agiletec.aps.system.RequestContext;
+import com.agiletec.aps.util.ApsWebApplicationUtils;
+import com.agiletec.plugins.jpfacetnav.aps.system.JpFacetNavSystemConstants;
+import com.agiletec.plugins.jpfacetnav.aps.system.services.content.widget.IFacetNavHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 
+import org.entando.entando.aps.system.services.searchengine.FacetedContentsResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.agiletec.aps.system.RequestContext;
-import com.agiletec.aps.util.ApsWebApplicationUtils;
-import com.agiletec.plugins.jpfacetnav.aps.system.JpFacetNavSystemConstants;
-import com.agiletec.plugins.jpfacetnav.aps.system.services.content.widget.IFacetNavHelper;
 
 /**
  * 
@@ -56,9 +57,13 @@ public class FacetNavResultTag extends AbstractFacetNavTag {
 				requiredFacets = (List<String>) request.getAttribute(this.getRequiredFacetsParamName());
 				if (requiredFacets == null) requiredFacets = new ArrayList<String>();
 			}
-			
-			IFacetNavHelper facetNavHelper = (IFacetNavHelper) ApsWebApplicationUtils.getBean(JpFacetNavSystemConstants.CONTENT_FACET_NAV_HELPER, this.pageContext);
-			List<String> result = facetNavHelper.getSearchResult(requiredFacets, reqCtx);
+			FacetedContentsResult facetNavResult = (FacetedContentsResult) request.getAttribute(FACET_RESULT_REQUEST_PARAM_NAME);
+			if (null == facetNavResult) {
+				IFacetNavHelper facetNavHelper = (IFacetNavHelper) ApsWebApplicationUtils.getBean(JpFacetNavSystemConstants.CONTENT_FACET_NAV_HELPER, this.pageContext);
+				facetNavResult = facetNavHelper.getFacetResult(requiredFacets, reqCtx);
+				this.pageContext.setAttribute(FACET_RESULT_REQUEST_PARAM_NAME, facetNavResult);
+			}
+			List<String> result = facetNavResult.getContentsId();
 			this.pageContext.setAttribute(this.getResultParamName(), result);
 			if (null != this.getBreadCrumbsParamName()) {
 				this.pageContext.setAttribute(this.getBreadCrumbsParamName(), super.getBreadCrumbs(requiredFacets, reqCtx));

@@ -63,7 +63,6 @@ public abstract class AbstractFacetNavTag extends TagSupport {
 			this.addFacet(requiredFacets, value);
 			index++;
 		}
-
 		Enumeration<String> paramNames = request.getParameterNames();
 		while (paramNames.hasMoreElements()) {
 			String paramName = paramNames.nextElement();
@@ -75,14 +74,10 @@ public abstract class AbstractFacetNavTag extends TagSupport {
 				}
 			}
 		}
-
 		String selectedNode = request.getParameter("selectedNode");
 		this.addFacet(requiredFacets, selectedNode);
-
 		this.removeSelections(requiredFacets);
-
 		this.manageCurrentSelect(selectedNode, requiredFacets);
-
 		return requiredFacets;
 	}
 
@@ -298,5 +293,7 @@ public abstract class AbstractFacetNavTag extends TagSupport {
 	private String _facetNodesParamName;
 	private String _requiredFacetsParamName;
 	private String _occurrencesParamName;
+	
+	protected static final String FACET_RESULT_REQUEST_PARAM_NAME = "jpfacetnav_facetNavResult";
 
 }

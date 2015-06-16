@@ -21,18 +21,24 @@
  */
 package com.agiletec.plugins.jpfacetnav.aps.system.services.content;
 
+import com.agiletec.aps.system.exception.ApsSystemException;
+
 import java.util.List;
 import java.util.Map;
 
-import com.agiletec.aps.system.exception.ApsSystemException;
+import org.entando.entando.aps.system.services.searchengine.FacetedContentsResult;
 
 /**
  * @author E.Santoboni
  */
 public interface IContentFacetManager {
 	
+	@Deprecated
 	public List<String> loadContentsId(List<String> contentTypeCodes, List<String> facetNodeCodes, List<String> groupCodes) throws ApsSystemException;
 	
+	@Deprecated
 	public Map<String, Integer> getOccurrences(List<String> contentTypeCodes, List<String> facetNodeCodes, List<String> groupCodes) throws ApsSystemException;
+	
+	public FacetedContentsResult getFacetResult(List<String> contentTypeCodes, List<String> facetNodeCodes, List<String> groupCodes) throws ApsSystemException;
 	
 }
