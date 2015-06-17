@@ -19,7 +19,6 @@ INSERT INTO widgetcatalog (code, titles, parameters, plugincode, parenttypecode,
 
 
 
-
 INSERT INTO localstrings (keycode, langcode, stringvalue) VALUES ('jpfacetnav_REMOVE_FILTER', 'it', 'Rimuovi');
 INSERT INTO localstrings (keycode, langcode, stringvalue) VALUES ('jpfacetnav_REMOVE_FILTER', 'en', 'Remove');
 
@@ -29,6 +28,8 @@ INSERT INTO localstrings (keycode, langcode, stringvalue) VALUES ('jpfacetnav_TI
 INSERT INTO localstrings (keycode, langcode, stringvalue) VALUES ('jpfacetnav_TITLE_FACET_RESULTS', 'it', 'Faccette');
 INSERT INTO localstrings (keycode, langcode, stringvalue) VALUES ('jpfacetnav_TITLE_FACET_RESULTS', 'en', 'Facets');
 
+INSERT INTO localstrings (keycode, langcode, stringvalue) VALUES ('jpfacetnav_NO_OCCURRENCES_FOUND', 'it', 'Occorrenze non estratte - Ricarica gli indici del motore di ricerca');
+INSERT INTO localstrings (keycode, langcode, stringvalue) VALUES ('jpfacetnav_NO_OCCURRENCES_FOUND', 'en', 'No occurrences found - Reload indexes of search engine');
 
 
 
@@ -63,6 +64,7 @@ INSERT INTO guifragment (code, widgettypecode, plugincode, gui, defaultgui, lock
 	<h2 class="title"><@wp.i18n key="jpfacetnav_TITLE_TREE" /></h2>
 	<@wpfp.facetNavTree requiredFacetsParamName="requiredFacets" facetsTreeParamName="facetsForTree" />
 	<@wp.freemarkerTemplateParameter var="occurrences" valueName="occurrences" removeOnEndTag=true >
+	<#if (occurrences??) && (occurrences?has_content)>
 	<#list facetsForTree as facetRoot>
 		<h3><@wpfp.facetNodeTitle facetNodeCode="${facetRoot.code}" /></h3>
 		<#if (occurrences[facetRoot.code]??) && (occurrences[facetRoot.code]?has_content)>
@@ -88,6 +90,9 @@ INSERT INTO guifragment (code, widgettypecode, plugincode, gui, defaultgui, lock
 			<p><abbr title="<@wp.i18n key="jpfacetnav_EMPTY_TAG" />:&#32;<@wpfp.facetNodeTitle facetNodeCode="${facetRoot.code}" escapeXml=true />">&ndash;</abbr></p>
 		</#if>
 	</#list>
+	<#else>
+		<p><em><@wp.i18n key="jpfacetnav_NO_OCCURRENCES_FOUND" /></em></p>
+	</#if>
 	</@wp.freemarkerTemplateParameter>
 </div>', 1);
 INSERT INTO guifragment (code, widgettypecode, plugincode, gui, defaultgui, locked) VALUES ('jpfacetnav_results', 'jpfacetnav_results', 'jpfacetnav', NULL, '<#assign wpfp=JspTaglibs["/jpfacetnav-core"]>
