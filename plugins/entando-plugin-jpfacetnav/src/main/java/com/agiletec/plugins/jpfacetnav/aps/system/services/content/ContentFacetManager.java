@@ -75,7 +75,7 @@ public class ContentFacetManager extends AbstractService implements IContentFace
 			if (null != contentTypeCodes && !contentTypeCodes.isEmpty()) {
 				for (int i = 0; i < contentTypeCodes.size(); i++) {
 					String contentType = contentTypeCodes.get(i);
-					SearchEngineFilter newFilter = new SearchEngineFilter<String>(IIndexerDAO.CONTENT_TYPE_FIELD_NAME, contentType);
+					SearchEngineFilter newFilter = new SearchEngineFilter(IIndexerDAO.CONTENT_TYPE_FIELD_NAME, contentType);
 					filters = this.addFilter(filters, newFilter);
 				}
 			}
