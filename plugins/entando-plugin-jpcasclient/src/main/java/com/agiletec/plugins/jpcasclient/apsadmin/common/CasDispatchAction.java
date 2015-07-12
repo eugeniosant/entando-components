@@ -42,12 +42,12 @@ import com.agiletec.plugins.jpcasclient.aps.system.services.user.CasAuthProvider
  * also from CAS sso contest.
  * @author G.Cocco
  */
-public class CasDispatchAction extends DispatchAction implements ServletResponseAware {
+public class CasDispatchAction extends DispatchAction implements ServletRequestAware, ServletResponseAware {
 	
 	/**
 	 * This needs the property followServiceRedirects property to TRUE for the
 	 * LogoutController defined in cas-servlet.xml
-	 * @return The code result.
+	 * @return The code of result
 	 */
 	@Override
 	public String doLogout() {
@@ -164,5 +164,5 @@ public class CasDispatchAction extends DispatchAction implements ServletResponse
 	private RequestAuthorizator _requestAuthorizator;
 	private HttpServletResponse _httpServletResponse;
 	private ICasClientConfigManager _casClientConfigManager;
-
+	
 }
