@@ -42,7 +42,7 @@ import com.agiletec.plugins.jpcasclient.aps.system.services.user.CasAuthProvider
  * also from CAS sso contest.
  * @author G.Cocco
  */
-public class CasDispatchAction extends DispatchAction implements ServletRequestAware, ServletResponseAware {
+public class CasDispatchAction extends DispatchAction implements ServletResponseAware {
 	
 	/**
 	 * This needs the property followServiceRedirects property to TRUE for the
