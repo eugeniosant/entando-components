@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-Present Entando Corporation (http://www.entando.com) All rights reserved.
+ * Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,6 @@ import com.agiletec.apsadmin.system.entity.IEntityActionHelper;
 import com.agiletec.plugins.jpwebdynamicform.aps.system.services.JpwebdynamicformSystemConstants;
 import com.agiletec.plugins.jpwebdynamicform.aps.system.services.message.model.Message;
 import com.agiletec.plugins.jpwebdynamicform.apsadmin.message.common.INewMessageAction;
-
 
 /**
  * Action class delegate to manage operations on List Attributes.<br />

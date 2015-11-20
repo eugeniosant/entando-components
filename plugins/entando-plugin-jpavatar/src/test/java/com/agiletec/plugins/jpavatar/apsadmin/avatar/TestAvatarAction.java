@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-Present Entando Corporation (http://www.entando.com) All rights reserved.
+ * Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,19 +21,18 @@
  */
 package com.agiletec.plugins.jpavatar.apsadmin.avatar;
 
+import com.agiletec.aps.system.exception.ApsSystemException;
+import com.agiletec.plugins.jpavatar.apsadmin.ApsAdminPluginBaseTestCase;
+import com.opensymphony.xwork2.Action;
+
 import java.io.File;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-
-import com.agiletec.aps.system.exception.ApsSystemException;
-import com.agiletec.plugins.jpavatar.apsadmin.ApsAdminPluginBaseTestCase;
-
-import com.agiletec.plugins.jpavatar.aps.system.JpAvatarSystemConstants;
-import com.agiletec.plugins.jpavatar.aps.system.services.avatar.AvatarConfig;
-import com.agiletec.plugins.jpavatar.aps.system.services.avatar.IAvatarManager;
-import com.agiletec.plugins.jpavatar.apsadmin.avatar.AvatarAction;
-import com.opensymphony.xwork2.Action;
+import org.entando.entando.plugins.jpavatar.aps.system.JpAvatarSystemConstants;
+import org.entando.entando.plugins.jpavatar.aps.system.services.avatar.AvatarConfig;
+import org.entando.entando.plugins.jpavatar.aps.system.services.avatar.IAvatarManager;
+import org.entando.entando.plugins.jpavatar.apsadmin.avatar.AvatarAction;
 
 public class TestAvatarAction extends ApsAdminPluginBaseTestCase {
 	

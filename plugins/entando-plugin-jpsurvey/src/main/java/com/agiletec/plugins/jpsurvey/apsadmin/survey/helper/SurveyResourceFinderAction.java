@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-Present Entando Corporation (http://www.entando.com) All rights reserved.
+ * Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,18 +28,14 @@ import java.util.Map;
 
 import com.agiletec.aps.system.ApsSystemUtils;
 import com.agiletec.aps.system.services.group.Group;
-//import com.agiletec.apsadmin.resource.AbstractResourceAction;
-//import com.agiletec.apsadmin.resource.IResourceFinderAction;
 import com.agiletec.plugins.jacms.apsadmin.resource.AbstractResourceAction;
-import com.agiletec.plugins.jacms.apsadmin.resource.IResourceFinderAction;
-
 
 /**
  * We force the search of resources of type "Image" only which, in addiction, must belong to the free group.
  * @author M.E. Minnai
  */
-public class SurveyResourceFinderAction extends AbstractResourceAction implements IResourceFinderAction {
-
+public class SurveyResourceFinderAction extends AbstractResourceAction {
+	
 	public List<String> getResources() throws Throwable {
 		List<String> resources = null;
 		List<String> readOnlyFixedList = Arrays.asList(Group.FREE_GROUP_NAME);

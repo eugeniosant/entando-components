@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-Present Entando Corporation (http://www.entando.com) All rights reserved.
+ * Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -136,9 +136,10 @@ public class ContentFacetSearcherDAO extends PublicContentSearcherDAO implements
 	private String createQueryStringForSelectOccurrences(List<String> contentTypeCodes, List<String> facetNodes, 
 			Collection<String> groupsForSelect) {
 		StringBuffer query = new StringBuffer();
-		query.append("SELECT contentrelations.refcategory, count(contentrelations.refcategory) FROM contentrelations ")
-			.append("LEFT JOIN contents on contentrelations.contentid = contents.contentid ")
-			.append("WHERE contentrelations.").append(FACET_REF_FIELDS_MARKER).append(" IS NOT NULL ");
+		query.append("SELECT contentrelations.").append(FACET_REF_FIELDS_MARKER)
+				.append(", count(contentrelations.").append(FACET_REF_FIELDS_MARKER).append(") FROM contentrelations ")
+				.append("LEFT JOIN contents on contentrelations.contentid = contents.contentid ")
+				.append("WHERE contentrelations.").append(FACET_REF_FIELDS_MARKER).append(" IS NOT NULL ");
 		this.addCommonBlock(contentTypeCodes, facetNodes, groupsForSelect, query);
 		query.append(" GROUP BY contentrelations.").append(FACET_REF_FIELDS_MARKER);
 		String queryString = query.toString();

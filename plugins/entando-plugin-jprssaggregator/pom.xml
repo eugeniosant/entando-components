@@ -20,7 +20,7 @@
 		<developer>
 			<id>e.santoboni</id>
 			<name>Eugenio Santoboni</name>
-			<email>e.santoboni@entando.com</email>
+			<email>eugenio.santoboni@gmail.com</email>
 		</developer>		
 	</developers>
 	<url>http://www.entando.com/</url>
@@ -60,18 +60,12 @@
 		<dependency>
 			<groupId>com.rometools</groupId>
 			<artifactId>rome</artifactId>
-			<version>1.5.0</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jdom</artifactId>
-					<groupId>org.jdom</groupId>
-				</exclusion>
-			</exclusions>
+			<version>1.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.rometools</groupId>
 			<artifactId>rome-fetcher</artifactId>
-			<version>1.5.0</version>
+			<version>1.5.1</version>
 		</dependency>
 	</dependencies>
 </project>

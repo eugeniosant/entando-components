@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-Present Entando Corporation (http://www.entando.com) All rights reserved.
+ * Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -57,6 +57,11 @@ public class MessageTypesAction extends BaseAction {
 				ApsProperties labelGroup = this.getI18nManager().getLabelGroup(labelKey);
 				if (null == labelGroup) {
 					this.addLabelGroups(labelKey, smallMessageType.getDescr());
+				}
+				String labelSubTitleKey = "jpwebdynamicform_SUBTITLE_" + smallMessageType.getCode();
+				ApsProperties labelSubTitleGroup = this.getI18nManager().getLabelGroup(labelSubTitleKey);
+				if (null == labelSubTitleGroup) {
+					this.addLabelGroups(labelSubTitleKey, smallMessageType.getDescr());
 				}
 			}
 		} catch (Throwable t) {

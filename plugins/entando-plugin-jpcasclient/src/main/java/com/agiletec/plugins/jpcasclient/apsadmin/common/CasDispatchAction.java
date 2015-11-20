@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-Present Entando Corporation (http://www.entando.com) All rights reserved.
+ * Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,8 @@ package com.agiletec.plugins.jpcasclient.apsadmin.common;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.agiletec.aps.system.ApsSystemUtils;
@@ -42,16 +42,15 @@ import com.agiletec.plugins.jpcasclient.aps.system.services.user.CasAuthProvider
  * also from CAS sso contest.
  * @author G.Cocco
  */
-public class CasDispatchAction extends DispatchAction implements ServletResponseAware {
+public class CasDispatchAction extends DispatchAction implements ServletRequestAware, ServletResponseAware {
 	
 	/**
 	 * This needs the property followServiceRedirects property to TRUE for the
 	 * LogoutController defined in cas-servlet.xml
-	 * @return The code of result
+	 * @return The result code
 	 */
 	@Override
 	public String doLogout() {
-		String result = super.doLogout();
 		ApsSystemUtils.getLogger().info("Exec Logout from Entando and from CAS.");
 		this.getSession().invalidate();
 		boolean isActive = this.getCasClientConfigManager().getClientConfig().isActive();
@@ -76,8 +75,9 @@ public class CasDispatchAction extends DispatchAction implements ServletResponse
 				ApsSystemUtils.logThrowable(ioe, this, "doLogout", "Error redirecting to CAS logout");
 			}
 			return null;
+		} else {
+			return super.doLogout();
 		}
-		return result;
 	}
 	
 	@Override
@@ -86,11 +86,6 @@ public class CasDispatchAction extends DispatchAction implements ServletResponse
 	}
 	public HttpServletResponse getServletResponse() {
 		return _httpServletResponse;
-	}
-	
-	@Override
-	protected HttpSession getSession() {
-		return this.getRequest().getSession();
 	}
 	
 	protected IAuthorizationManager getAuthorizatorManager() {
@@ -164,5 +159,5 @@ public class CasDispatchAction extends DispatchAction implements ServletResponse
 	private RequestAuthorizator _requestAuthorizator;
 	private HttpServletResponse _httpServletResponse;
 	private ICasClientConfigManager _casClientConfigManager;
-	
+
 }

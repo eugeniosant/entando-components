@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-Present Entando S.r.l. (http://www.entando.com) All rights reserved.
+ * Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -228,14 +228,6 @@ public class CmsSearchEngineManager extends AbstractService
     		throw e;
     	}
     	return contentsId;
-	}
-	
-	/**
-	 * @deprecated From jAPS 2.0 version 2.0.9. Use getStatus() method
-	 */
-	@Override
-	public int getState() {
-		return this.getStatus();
 	}
 	
 	@Override
