@@ -21,15 +21,6 @@
  */
 package com.agiletec.plugins.jpfacetnav.aps.tags;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.jsp.JspException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.agiletec.aps.system.RequestContext;
 import com.agiletec.aps.system.SystemConstants;
 import com.agiletec.aps.system.common.tree.ITreeNode;
@@ -37,6 +28,16 @@ import com.agiletec.aps.system.services.page.Widget;
 import com.agiletec.aps.util.ApsWebApplicationUtils;
 import com.agiletec.plugins.jpfacetnav.aps.system.JpFacetNavSystemConstants;
 import com.agiletec.plugins.jpfacetnav.aps.system.services.content.widget.IFacetNavHelper;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.jsp.JspException;
+
+import org.entando.entando.aps.system.services.searchengine.FacetedContentsResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author E.Santoboni
@@ -51,10 +52,13 @@ public class FacetNavTreeTag extends AbstractFacetNavTag {
 		RequestContext reqCtx = (RequestContext) request.getAttribute(RequestContext.REQCTX);
 		try {
 			List<String> requiredFacets = this.getRequiredFacets();
-
-			IFacetNavHelper facetNavHelper = (IFacetNavHelper) ApsWebApplicationUtils.getBean(JpFacetNavSystemConstants.CONTENT_FACET_NAV_HELPER, this.pageContext);
-			Map<String, Integer> occurrences = facetNavHelper.getOccurences(requiredFacets, reqCtx);
-
+			FacetedContentsResult facetNavResult = (FacetedContentsResult) request.getAttribute(FACET_RESULT_REQUEST_PARAM_NAME);
+			if (null == facetNavResult) {
+				IFacetNavHelper facetNavHelper = (IFacetNavHelper) ApsWebApplicationUtils.getBean(JpFacetNavSystemConstants.CONTENT_FACET_NAV_HELPER, this.pageContext);
+				facetNavResult = facetNavHelper.getFacetResult(requiredFacets, reqCtx);
+				this.pageContext.setAttribute(FACET_RESULT_REQUEST_PARAM_NAME, facetNavResult);
+			}
+			Map<String, Integer> occurrences = facetNavResult.getOccurrences();
 			List<ITreeNode> facetsForTree = this.getFacetRootNodes(reqCtx);
 			this.pageContext.setAttribute(this.getFacetsTreeParamName(), facetsForTree);
 			request.setAttribute(this.getOccurrencesParamName(), occurrences);

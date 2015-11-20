@@ -21,14 +21,6 @@
  */
 package com.agiletec.plugins.jpfacetnav.aps.system.services.content.widget;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.agiletec.aps.system.RequestContext;
 import com.agiletec.aps.system.SystemConstants;
 import com.agiletec.aps.system.common.tree.ITreeNodeManager;
@@ -43,16 +35,32 @@ import com.agiletec.plugins.jacms.aps.system.services.content.IContentManager;
 import com.agiletec.plugins.jpfacetnav.aps.system.JpFacetNavSystemConstants;
 import com.agiletec.plugins.jpfacetnav.aps.system.services.content.IContentFacetManager;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.entando.entando.aps.system.services.searchengine.FacetedContentsResult;
+
 /**
  * @author E.Santoboni
  */
 public class FacetNavHelper implements IFacetNavHelper {
 	
 	@Override
-	public List<String> getSearchResult(List<String> selectedFacetNodes, RequestContext reqCtx) throws ApsSystemException {
+	public FacetedContentsResult getFacetResult(List<String> selectedFacetNodes, RequestContext reqCtx) throws ApsSystemException {
 		List<String> contentTypesFilter = this.getContentTypesFilter(reqCtx);
 		List<String> userGroupCodes = new ArrayList<String>(this.getAllowedGroups(reqCtx));
-		return this.getContentFacetManager().loadContentsId(contentTypesFilter, selectedFacetNodes, userGroupCodes);
+		return this.getContentFacetManager().getFacetResult(contentTypesFilter, selectedFacetNodes, userGroupCodes);
+	}
+	
+	@Override
+	@Deprecated
+	public List<String> getSearchResult(List<String> selectedFacetNodes, RequestContext reqCtx) throws ApsSystemException {
+		return this.getFacetResult(selectedFacetNodes, reqCtx).getContentsId();
 	}
 	
 	/**
@@ -79,12 +87,11 @@ public class FacetNavHelper implements IFacetNavHelper {
 		}
 		return contentTypes;
 	}
-
+	
 	@Override
+	@Deprecated
 	public Map<String, Integer> getOccurences(List<String> selectedFacetNodes, RequestContext reqCtx) throws ApsSystemException {
-		List<String> contentTypesFilter = this.getContentTypesFilter(reqCtx);
-		List<String> userGroupCodes = new ArrayList<String>(this.getAllowedGroups(reqCtx));
-		return this.getContentFacetManager().getOccurrences(contentTypesFilter, selectedFacetNodes, userGroupCodes);
+		return this.getFacetResult(selectedFacetNodes, reqCtx).getOccurrences();
 	}
 
 	/**

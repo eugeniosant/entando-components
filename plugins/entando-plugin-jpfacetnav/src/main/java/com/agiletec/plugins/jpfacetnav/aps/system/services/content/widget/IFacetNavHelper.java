@@ -21,20 +21,26 @@
  */
 package com.agiletec.plugins.jpfacetnav.aps.system.services.content.widget;
 
-import java.util.List;
-import java.util.Map;
-
 import com.agiletec.aps.system.RequestContext;
 import com.agiletec.aps.system.common.tree.ITreeNodeManager;
 import com.agiletec.aps.system.exception.ApsSystemException;
+
+import java.util.List;
+import java.util.Map;
+
+import org.entando.entando.aps.system.services.searchengine.FacetedContentsResult;
 
 /**
  * @author E.Santoboni
  */
 public interface IFacetNavHelper {
 	
+	public FacetedContentsResult getFacetResult(List<String> selectedFacetNodes, RequestContext reqCtx) throws ApsSystemException;
+	
+	@Deprecated
 	public List<String> getSearchResult(List<String> selectedFacetNodes, RequestContext reqCtx) throws ApsSystemException;
 	
+	@Deprecated
 	public Map<String, Integer> getOccurences(List<String> selectedFacetNodes, RequestContext reqCtx) throws ApsSystemException;
 	
 	public ITreeNodeManager getTreeNodeManager();
