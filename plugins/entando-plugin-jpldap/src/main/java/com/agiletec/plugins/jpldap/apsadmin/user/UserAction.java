@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-Present Entando Corporation (http://www.entando.com) All rights reserved.
+ * Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,10 +26,9 @@ import com.agiletec.aps.system.SystemConstants;
 import com.agiletec.aps.system.services.user.AbstractUser;
 import com.agiletec.aps.system.services.user.User;
 import com.agiletec.aps.system.services.user.UserDetails;
-
 import com.agiletec.apsadmin.system.ApsAdminSystemConstants;
-
 import com.agiletec.plugins.jpldap.aps.system.services.user.ILdapUserManager;
+
 import java.util.Date;
 
 /**
@@ -45,10 +44,6 @@ public class UserAction extends org.entando.entando.apsadmin.user.UserAction {
 			if (null != result) return result;
 			String username = this.getUsername();
 			UserDetails user = this.getUserManager().getUser(username);
-			if (!user.isEntandoUser() && !this.isWriteUserEnable()) {
-				this.addActionError(this.getText("error.user.notLocal"));
-				return "userList";
-			}
 			this.setRemoteUser(!user.isEntandoUser());
 			this.setActive(!user.isDisabled());
 			this.setUser(user);

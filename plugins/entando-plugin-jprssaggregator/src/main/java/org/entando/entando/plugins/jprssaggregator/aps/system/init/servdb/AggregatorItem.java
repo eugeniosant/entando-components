@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-Present Entando Corporation (http://www.entando.com) All rights reserved.
+ * Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@ package org.entando.entando.plugins.jprssaggregator.aps.system.init.servdb;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import java.math.BigInteger;
+
 import java.util.Date;
 
 /**

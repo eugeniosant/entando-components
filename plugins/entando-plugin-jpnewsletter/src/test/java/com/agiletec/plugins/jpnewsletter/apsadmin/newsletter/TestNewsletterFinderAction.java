@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-Present Entando Corporation (http://www.entando.com) All rights reserved.
+ * Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,6 @@ import com.agiletec.plugins.jpnewsletter.util.JpnewsletterTestHelper;
 import com.agiletec.aps.system.SystemConstants;
 import com.agiletec.aps.system.services.baseconfig.ConfigInterface;
 import com.agiletec.aps.system.services.user.IUserManager;
-import com.agiletec.plugins.jacms.apsadmin.content.IContentFinderAction;
 import com.agiletec.plugins.jpnewsletter.aps.system.JpnewsletterSystemConstants;
 import com.agiletec.plugins.jpnewsletter.aps.system.services.newsletter.INewsletterManager;
 
@@ -52,7 +51,7 @@ public class TestNewsletterFinderAction extends ApsAdminPluginBaseTestCase {
 		this.initAction("/do/jpnewsletter/Newsletter", "list");
 		String result = this.executeAction();
 		assertEquals(Action.SUCCESS, result);
-		IContentFinderAction action = (IContentFinderAction) this.getAction();
+		NewsletterFinderAction action = (NewsletterFinderAction) this.getAction();
 		List<String> contentIds = action.getContents();
 		assertEquals(1, contentIds.size());
 		assertTrue(contentIds.contains("ART180"));

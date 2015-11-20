@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-Present Entando Corporation (http://www.entando.com) All rights reserved.
+ * Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,13 +29,13 @@ import com.agiletec.plugins.jpldap.aps.system.services.user.ILdapUserManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.ListUtils;
 
 /**
  * @author E.Santoboni
  */
 public class UserFinderAction extends org.entando.entando.apsadmin.user.UserProfileFinderAction {
-
+	
 	@Override
 	public List<String> getSearchResult() {
 		List<String> mainSearchResult = super.getSearchResult();
@@ -44,22 +44,24 @@ public class UserFinderAction extends org.entando.entando.apsadmin.user.UserProf
 			if (null == userType || userType == 0) {
 				return mainSearchResult;
 			} else {
-				Boolean entandoUser = userType.intValue() == 1;
+				Boolean entandoUser = (userType == 1);
 				List<String> ldapUsernames = this.getLdapUsernames();
+				List<String> newList = null;
 				if (entandoUser) {
-					return (List<String>) CollectionUtils.removeAll(mainSearchResult, ldapUsernames);
+					newList = (List<String>) ListUtils.removeAll(mainSearchResult, ldapUsernames);
 				} else {
-					return (List<String>) CollectionUtils.intersection(mainSearchResult, ldapUsernames);
+					newList = (List<String>) ListUtils.intersection(mainSearchResult, ldapUsernames);
 				}
+				return newList;
 			}
 		} catch (Throwable t) {
 			ApsSystemUtils.logThrowable(t, this, "getSearchResult");
 			throw new RuntimeException("Error while searching users", t);
 		}
 	}
-
+	
 	protected List<String> getLdapUsernames() throws ApsSystemException {
-		List<UserDetails> users = ((ILdapUserManager) this.getUserManager()).searchUsers(this.getUsername(), true);
+		List<UserDetails> users = ((ILdapUserManager) this.getUserManager()).searchUsers(this.getUsername(), false);
 		List<String> usernames = new ArrayList<String>();
 		if (null != users) {
 			for (int i = 0; i < users.size(); i++) {
@@ -69,14 +71,14 @@ public class UserFinderAction extends org.entando.entando.apsadmin.user.UserProf
 		}
 		return usernames;
 	}
-
+	
 	public Integer getUserType() {
 		return _userType;
 	}
 	public void setUserType(Integer userType) {
 		this._userType = userType;
 	}
-
+	
 	private Integer _userType;
 
 }
